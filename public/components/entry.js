@@ -4,7 +4,8 @@ angular.module('myapp')
 		var session=undefined;
 		this.favorite=function(id,title,poster_path){
 			//prepare object to send it to node server
-			var obj={id:id,title:title,poster_path:poster_path}
+			var obj={id:id,title:title,poster_path:poster_path};
+			//checking for username
 		    $.ajax({
               		async:false,
               		url: "http://127.0.0.1:8080/session",
