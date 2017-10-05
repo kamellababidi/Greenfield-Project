@@ -1,11 +1,25 @@
 angular.module('myapp',[])
 .component('app',{
-	controller:function(){  
+	controller:function(){ 
+		var x=this;
+		this.user=''
+		 $.ajax({
+              		async:false,
+              		url: "http://127.0.0.1:8080/session",
+              		cache: false,
+              		dataType: 'json',
+              		success: function(user){
+              			console.log('hehehehe')
+              			console.log(user)
+              			x.user=user
+              		}
+              	});
+		console.log(this.user)
 		this.trailer=[]; 
 		this.movie=[];
 		this.id=undefined;
 		//change searched movie
-		var x=this;
+		
 		this.change=function(){
 			//convert the name to id
 			var text=this.input.val.value

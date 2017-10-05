@@ -32,6 +32,9 @@ app.get('/login', function(req, res) {
   // res.render('login');
   res.sendFile(__dirname+'/views/login.html');
 });
+app.get('/session',function(req,res){
+  res.send(JSON.stringify(req.session.user.username))
+})
 
 // app.post('/login', function(req, res) {
 //   var username = req.body.username;
