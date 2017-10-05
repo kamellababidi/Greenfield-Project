@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Greenfield-Project
 # Movie Box
 # Bugs Group - RBK/Cohort3
@@ -8,7 +7,7 @@ Movie Box App is a collection of movies. The app is a simple way to let the user
 
 Features:
 - Search for the movie name.
-- Sign up give the user a new feature whis is a favorite list. 
+- Sign up give the user a new feature which is the favorite list choice. 
 - Watch the movie trailer online.
 
 
@@ -30,31 +29,29 @@ Features:
 
 ## Usage
 
- 
+ You do not have to login/signup to use this app. However, without doing so, you will only be allowed to browse the available movies. Once you sign up and login to your account, you will gain the ability to create your own favorite list for movies.
 
 
 ## Requirements
 
-- 
-- 
-- 
-- 
-- 
+- Node.js
+- AngularJs
+- Mongoose 
+- Robo 3T 1.1.1
+
 
 ## Development
+Development of this application started on Septemper 30, 2017 and the minimum viable product (MVP) was completed on October 1, 2017. The final application was deployed on Heroku on 5 October, 2017.
+
 
 
 
 ### Installing Dependencies
-
+- npm install 
 
 ### Roadmap
 
 View the project roadmap [here]
 
 
-## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-=======
->>>>>>> e9144b3ad5d4a1136832eb0b134caea411f387a0
