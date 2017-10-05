@@ -49,9 +49,7 @@ Development of this application started on Septemper 30, 2017 and the minimum vi
 ### Installing Dependencies
 - npm install 
 
-### Roadmap
 
-View the project roadmap [here]
 
 
 
