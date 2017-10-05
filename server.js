@@ -1,6 +1,7 @@
 var request = require('request');
 var express=require('express');
 var bodyParser=require('body-parser');
+var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var Promise=require('promise');
 var db = require("./Database/config.js");
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 // Parse forms (signup/login)
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('shhh!, secret'));
 app.use(session({
   secret: 'shhh!',
   resave: false,
@@ -24,37 +26,16 @@ app.use(session({
 
 
 app.get('/', util.checkUser, function(req, res) {
-  // res.render('/index') 
   res.sendFile(__dirname+'/index.html');
 });
 
 app.get('/login', function(req, res) {
-  // res.render('login');
   res.sendFile(__dirname+'/views/login.html');
 });
+
 app.get('/session',function(req,res){
-  res.send(JSON.stringify(req.session.user.username))
-})
-
-// app.post('/login', function(req, res) {
-//   var username = req.body.username;
-//   var password = req.body.password;
-
-//   User.findOne({ username: username })
-//     .exec(function(err, user) {
-//       if (!user) {
-//        res.sendFile(__dirname+'/views/login.html');
-//       } else {
-//         User.comparePassword(password, user.password, function(err, match) {
-//           if (match) {
-//             util.createSession(req, res, user);
-//           } else {
-//         res.sendFile(__dirname+'/views/login.html');
-//           }
-//         });
-//       }
-//     });
-// });
+  res.send(JSON.stringify(req.session.username))
+});
 
 app.post('/login', function(req, res) {
   var username = req.body.username;
@@ -63,20 +44,17 @@ app.post('/login', function(req, res) {
   User.findOne({ username: username })
   .exec(function(err, user) {
     if (!user) {
-      // res.redirect('/login');
       res.sendFile(__dirname+'/views/login.html');
     } else {
 
       if(password==user.password){
-        util.createSession(req, res, user);
-        // console.log(req.session);
+        req.session.username = user.username;
+        console.log('--------------------> login ', req.session.username)
         res.sendFile(__dirname+'/index.html');
       }
       else{
-        // res.send(500,'Wrong Password .. Try Again');
         res.status(500).send('Wrong Password .. Try Again');
         console.log('Wrong Password .. Try Again');
-        // res.sendFile(__dirname+'/views/login.html');
      }
 
    }
@@ -87,11 +65,9 @@ app.post('/login', function(req, res) {
 
 
 app.get('/logout', function(req, res){
-	req.session.destroy(function() {
-     console.log(req.session);
-     // res.redirect('/login');
+    req.session.username = null;
+    console.log(">>>>>>",req.session.username)
     res.sendFile(__dirname+'/views/login.html');
-  });
 });
 
 app.get('/signUp',function(req, res) {
@@ -114,14 +90,13 @@ app.post('/signUp', function(req, res) {
         if (err) {
           res.status(500).send(err);
         }
-        util.createSession(req, res, newUser);
-        // console.log(req.session);
+        req.session.username = newUser.username;
+        console.log('--------------------> login ', req.session.username);
+        res.sendFile(__dirname+'/index.html');
       });
     } else {
       console.log('Account already exists');
       res.status(500).send('Account Already Exists');
-      // res.send(500,'Account Already Exists');
-      // res.sendFile(__dirname+'/views/signUp.html');
     }
   });
 });
@@ -130,41 +105,60 @@ app.post('/signUp', function(req, res) {
 
 //handling post request for movie data
 app.post('/add',function(req,res){
-  var record = new Movie ({
-   id:req.body.id,
-   title:req.body.title,
-   release_date:req.body.date,
-   popularity: req.body.popularity,
-   overview:req.body.overview,
-   vote_count:req.body.vote_count,
-   vote_average:req.body.vote_average,
-   poster_path:req.body.poster_path 
- });
+  if (req.session.username) 
+  {
+      var record = new Movie ({
+       id:req.body.id,
+       title:req.body.title,
+       release_date:req.body.date,
+       popularity: req.body.popularity,
+       overview:req.body.overview,
+       vote_count:req.body.vote_count,
+       vote_average:req.body.vote_average,
+       poster_path:req.body.poster_path 
+     });
 
   
-  //save novie info in our database
-  record.save(function(error, result){
-   if(error){
-     throw error;
-   }
- });
+      //start save novie info in our database
+      record.save(function(error, newMovie){
+       if(error){
+         throw error;
+       }
+     });
+//end save
+
   console.log('added')
   res.send('done');
+}
+else
+{
+  console.log ('>>>>>>>>>> rejected');
+  res.redirect('/login')
+}
 });
 
+
+
+
+
+
 app.get('/go',function(req,res){
-  res.sendFile(__dirname+'/views/favoritelist.html')            
+  if (req.session.username){
+    res.sendFile(__dirname+'/views/favoritelist.html')            
+  }
+  else
+    res.redirect('/login')
 })
 
 
 //fetch data from database
 app.get('/favorit',function(req,res){
   console.log('hi')
-  Movie.find({},function(err,result){
+  Movie.find({},function(err,newMovie){
     if(err)
       throw err;
-    console.log(result)
-    res.send(JSON.stringify(result))
+    console.log(newMovie)
+    res.send(JSON.stringify(newMovie))
   })
 })
 

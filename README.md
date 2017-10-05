@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Greenfield-Project
 # Movie Box
 # Bugs Group - RBK/Cohort3
@@ -55,3 +56,5 @@ View the project roadmap [here]
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+=======
+>>>>>>> e9144b3ad5d4a1136832eb0b134caea411f387a0
