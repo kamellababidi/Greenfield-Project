@@ -105,29 +105,43 @@ app.post('/signUp', function(req, res) {
 
 //handling post request for movie data
 app.post('/add',function(req,res){
-  if (req.session.username) 
-  {
-      var record = new Movie ({
-       id:req.body.id,
-       title:req.body.title,
-       release_date:req.body.date,
-       popularity: req.body.popularity,
-       overview:req.body.overview,
-       vote_count:req.body.vote_count,
-       vote_average:req.body.vote_average,
-       poster_path:req.body.poster_path 
-     });
-
+ 
+  if(req.session.username){ 
   
-      //start save novie info in our database
-      record.save(function(error, newMovie){
-       if(error){
-         throw error;
-       }
-     });
-//end save
+  var record = new Movie ({
+    id:req.body.id,
+    title:req.body.title,
+    release_date:req.body.date,
+    popularity: req.body.popularity,
+    overview:req.body.overview,
+    vote_count:req.body.vote_count,
+    vote_average:req.body.vote_average,
+    poster_path:req.body.poster_path
+  });
 
-  console.log('added')
+
+record.save( function(error, newMovie){
+  var username = req.session.username;
+  if(error){
+    throw error
+  }
+
+  User.findOne({username: username} , function(err, user){
+    if (err)
+     console.log('error in find =========>', err)
+
+      user.movies.push(newMovie._id);
+     console.log('user in find =========>', user.movies)
+     User.findOneAndUpdate({username: username} ,{movies: user.movies},function(err , updated){
+      if(err)
+        console.log(err);
+      else{
+        console.log('updated---------------> ',updated)
+      }
+    })
+   });
+}); 
+console.log('added')
   res.send('done');
 }
 else
@@ -163,7 +177,7 @@ app.get('/favorit',function(req,res){
 })
 
 app.listen(port,function(err){
-	console.log('connected');
+  console.log('connected');
 });
 
 module.exports = app;
@@ -204,4 +218,16 @@ module.exports = app;
 //    console.log("record added");
 //     }
 // });
+
+
+
+
+
+
+
+
+
+
+
+
 
