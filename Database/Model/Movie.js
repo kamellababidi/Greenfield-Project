@@ -7,11 +7,6 @@ var mongoose = require('mongoose');
 var movieSchema = mongoose.Schema({
   id: Number,
   title: String,
-  release_date: Date,
-  popularity: String,
-  overview: String,
-  vote_count: String,
-  vote_average: Number,
   poster_path: String
 });
 
