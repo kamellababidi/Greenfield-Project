@@ -9,17 +9,14 @@ angular.module('myapp',[])
               		cache: false,
               		dataType: 'json',
               		success: function(user){
-              			console.log('hehehehe')
-              			console.log(user)
-              			x.user=user
+              			console.log(user);
+              			x.user=user;
               		}
               	});
 		console.log(this.user)
 		this.trailer=[]; 
 		this.movie=[];
 		this.id=undefined;
-		//change searched movie
-		
 		this.change=function(){
 			//convert the name to id
 			var text=this.input.val.value
@@ -38,7 +35,6 @@ angular.module('myapp',[])
 				cache: false,
 				dataType: 'json',
 				success: function(data){
-              	//
               	x.movie[0]=data
               	console.log(x.movie)
               	$.ajax({

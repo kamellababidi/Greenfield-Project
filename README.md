@@ -30,16 +30,17 @@ Features:
  You do not have to login/signup to use this app. However, without doing so, you will only be allowed to browse the available movies. Once you sign up and login to your account, you will gain the ability to create your own favorite list for movies.
 
 
-## Requirements
+## Technologies
 
 - Node.js
 - AngularJs
 - Mongoose 
 - Robo 3T 1.1.1
+- MLab
 
 
 ## Development
-Development of this application started on Septemper 30, 2017 and the minimum viable product (MVP) was completed on October 1, 2017. The final application was deployed on Heroku on 5 October, 2017.
+Development of this application started on Septemper 30, 2017 and the minimum viable product (MVP) was completed on October 1, 2017. The final application was deployed on Heroku on 6 October, 2017.
 
 
 
@@ -48,6 +49,5 @@ Development of this application started on Septemper 30, 2017 and the minimum vi
 - npm install 
 
 
-
-
-
+## Documentation
+[lets go](https://docs.google.com/document/d/1bjvWumlaPAI5qnsnl97tWoZ14JL5P9KLcq5RumRZLgU/edit?usp=sharing)
