@@ -107,19 +107,14 @@ app.post('/signUp', function(req, res) {
 app.post('/add',function(req,res){
  
   if(req.session.username){ 
-  
+  //prepare record 
   var record = new Movie ({
     id:req.body.id,
     title:req.body.title,
-    release_date:req.body.date,
-    popularity: req.body.popularity,
-    overview:req.body.overview,
-    vote_count:req.body.vote_count,
-    vote_average:req.body.vote_average,
     poster_path:req.body.poster_path
   });
 
-
+//add it to database
 record.save( function(error, newMovie){
   var username = req.session.username;
   if(error){
@@ -166,14 +161,27 @@ app.get('/go',function(req,res){
 
 
 //fetch data from database
-app.get('/favorit',function(req,res){
+app.get('/favorit', function(req,res){
+  
   console.log('hi')
-  Movie.find({},function(err,newMovie){
+  User.find({username:req.session.username},"movies",function(err,newMovie){
     if(err)
       throw err;
-    console.log(newMovie)
-    res.send(JSON.stringify(newMovie))
+    console.log(newMovie[0].movies[0])
+    var favoritarr=[];
+      Movie.find({_id:newMovie[0].movies[0]},function(err,result){
+        if(err)
+          throw err;
+        console.log('hiiiiiiiiiiii')
+        console.log(result)
+        favoritarr.push(result[0])
+        res.send(JSON.stringify(favoritarr))
+      })
+
+
   })
+ 
+
 })
 
 app.listen(port,function(err){
