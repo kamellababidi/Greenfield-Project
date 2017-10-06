@@ -12,7 +12,7 @@ var app=express();
 var port = process.env.PORT||8080;
 
 
-app.set('views', __dirname + '/views');
+// app.set('views', __dirname + '/views');
 app.use(bodyParser.json());
 // Parse forms (signup/login)
 app.use(express.static(__dirname));
@@ -53,7 +53,7 @@ app.post('/login', function(req, res) {
         res.sendFile(__dirname+'/index.html');
       }
       else{
-        res.status(500).send('Wrong Password .. Try Again');
+        res.sendFile(__dirname+'/Msg.html');
         console.log('Wrong Password .. Try Again');
      }
 
@@ -96,8 +96,7 @@ app.post('/signUp', function(req, res) {
       });
     } else {
       console.log('Account already exists');
-      res.status(500).send('Account Already Exists');
-    }
+      res.sendFile(__dirname+'/Msg2.html');    }
   });
 });
 
@@ -118,7 +117,7 @@ app.post('/add',function(req,res){
 record.save( function(error, newMovie){
   var username = req.session.username;
   if(error){
-    throw error
+    throw error;
   }
 
   User.findOne({username: username} , function(err, user){
@@ -139,7 +138,7 @@ record.save( function(error, newMovie){
 console.log('added')
   res.send('done');
 }
-else
+else // if the user not logged in
 {
   console.log ('>>>>>>>>>> rejected');
   res.redirect('/login')
@@ -151,7 +150,7 @@ else
 
 
 
-app.get('/go',function(req,res){
+app.get('/favoritelist',function(req,res){
   if (req.session.username){
     res.sendFile(__dirname+'/views/favoritelist.html')            
   }
@@ -175,6 +174,7 @@ app.get('/favorit', function(req,res){
         console.log('hiiiiiiiiiiii')
         console.log(result)
         favoritarr.push(result[0])
+        //here we should use for loop to fetch all movie array but unfortunately we faced problem with async issue
         res.send(JSON.stringify(favoritarr))
       })
 

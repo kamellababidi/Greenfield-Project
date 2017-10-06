@@ -19,7 +19,7 @@ angular.module('myapp')
 			if(session===undefined || session===null){
 				alert('you are not allowed to add favorite')
 			}else{
-			  //make ajax request to server
+			  //make ajax request to server to add it to database 
 			  $.ajax({
               url: "http://127.0.0.1:8080/add",
               type: "POST",
