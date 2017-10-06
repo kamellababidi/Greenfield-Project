@@ -50,4 +50,4 @@ Development of this application started on Septemper 30, 2017 and the minimum vi
 
 
 ## Documentation
-[lets go](https://docs.google.com/document/d/1bjvWumlaPAI5qnsnl97tWoZ14JL5P9KLcq5RumRZLgU/edit?usp=sharing)
+  [click here](https://docs.google.com/document/d/1bjvWumlaPAI5qnsnl97tWoZ14JL5P9KLcq5RumRZLgU/edit?usp=sharing)
