@@ -22,7 +22,6 @@ Features:
 2. [Requirements](#requirements)
 3. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-4. [Contributing](#Contributing)
 
 
 
