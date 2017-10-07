@@ -166,19 +166,27 @@ app.get('/favorit', function(req,res){
   User.find({username:req.session.username},"movies",function(err,newMovie){
     if(err)
       throw err;
-    console.log(newMovie[0].movies[0])
+    console.log(newMovie[0].movies)
     var favoritarr=[];
-      Movie.find({_id:newMovie[0].movies[0]},function(err,result){
+     for (var i=0;i<newMovie[0].movies.length;i++){
+        Movie.find({_id:newMovie[0].movies[i]},function(err,result){
         if(err)
           throw err;
         console.log('hiiiiiiiiiiii')
         console.log(result)
         favoritarr.push(result[0])
         //here we should use for loop to fetch all movie array but unfortunately we faced problem with async issue
-        res.send(JSON.stringify(favoritarr))
+       // 
+       
       })
-
-
+     }
+     
+     setTimeout(function(){
+        console.log('result')
+        console.log(favoritarr)
+        res.send(JSON.stringify(favoritarr))
+     }, 500);
+     
   })
  
 
