@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoURI = 'mongodb://localhost/movies'; 
+mongoURI = 'mongodb://maisaa:123456@ds111885.mlab.com:11885/moviebox'; 
 mongoose.connect(mongoURI);
 
 // Run in seperate terminal window using 'mongod'
